@@ -1,0 +1,6 @@
+*.pyc
+*.swp
+.DS_Store
+
+# test addresses, contain private info
+addresses.json
