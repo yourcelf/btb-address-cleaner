@@ -8,7 +8,7 @@ biased toward the sorts of addresses people in prison are given.
     from addresscleaner import parse_address, format_address
 
     >>> parsed = parse_address("""John Dough
-    ... \#1234567
+    ... #1234567
     ... 7819 228th St.
     ... Raiford, FL 32026-1120""")
     >>> print parsed
