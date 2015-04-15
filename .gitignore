@@ -2,6 +2,7 @@
 *.swp
 .DS_Store
 
+publish.sh
 dist
 addresscleaner.egg-info
 

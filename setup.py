@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name="addresscleaner",
-    version="0.0.3",
+    version="0.0.4",
     author="Charlie DeTar",
     author_email="cfd@media.mit.edu",
     url="https://github.com/yourcelf/btb-address-cleaner",
