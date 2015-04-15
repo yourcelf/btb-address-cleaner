@@ -1,8 +1,12 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="BTB address cleaner",
-    version="0.0.2",
+    name="addresscleaner",
+    version="0.0.3",
+    author="Charlie DeTar",
+    author_email="cfd@media.mit.edu",
+    url="https://github.com/yourcelf/btb-address-cleaner",
+    description="Utility for sanitizing street addresses",
     license='BSD',
-    packages=find_packages()
+    packages=find_packages(),
 )
