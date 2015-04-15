@@ -2,5 +2,9 @@
 *.swp
 .DS_Store
 
+dist
+addresscleaner.egg-info
+
 # test addresses, contain private info
-addresses.json
+tests/addresses.json
+tests/test_cases
