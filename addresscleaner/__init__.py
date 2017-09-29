@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 import re
-from us_states import STATES_NORMALIZED, USPS_CHOICES
+from .us_states import STATES_NORMALIZED, USPS_CHOICES
 
 zip_re = "(?P<zip5>\d{5})(?:\s*-\s*(?P<plus4>\d{4}))?"
 state_re = "|".join(u[0] for u in USPS_CHOICES)
@@ -106,7 +107,7 @@ def _parse_all(addresses):
         try:
             parsed.append(parse_address(a))
         except AddressException as e:
-            print e.message
+            print(e.message)
     return parsed
 
 
