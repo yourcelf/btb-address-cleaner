@@ -20,10 +20,10 @@ def main(filename):
         for key in order:
             if key in parsed:
                 dct[key] = parsed[key]
-        print d.encode('utf-8')
-        print "----"
-        print json.dumps(dct, indent=2).encode('utf-8')
-        print "===="
+        print(d.encode('utf-8'))
+        print("----")
+        print(json.dumps(dct, indent=2).encode('utf-8'))
+        print("====")
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:

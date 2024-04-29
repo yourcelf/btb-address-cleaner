@@ -13,7 +13,7 @@ class AddressException(Exception):
 def normalize_zip(code):
     match = re.match(zip_re, code)
     if match.group("plus4"):
-        return u"{}-{}".format(match.group("zip5"), match.group("plus4"))
+        return "{}-{}".format(match.group("zip5"), match.group("plus4"))
     return match.group("zip5")
 
 
@@ -36,7 +36,7 @@ def parse_address(address):
     if len(parts) < 3:
         raise AddressException("Less than 3 lines: {}".format(repr(address)))
     parsed = {
-        u"name": parts.pop(0)
+        "name": parts.pop(0)
     }
 
     # zip on separate line? put it on previous line for regular parsing.
@@ -62,35 +62,35 @@ def parse_address(address):
     # Pull out address1, address2, etc parts.
     count = 1
     while len(parts) > 1:
-        parsed[u"address{}".format(count)] = parts.pop(0)
+        parsed["address{}".format(count)] = parts.pop(0)
         count += 1
 
     city_state_zip = parts[0]
     match = re.match(city_state_zip_re, city_state_zip)
     if match:
-        parsed[u"city"] = match.group("city")
-        parsed[u"state"] = match.group("state")
-        parsed[u"zip"] = normalize_zip(match.group("zip"))
+        parsed["city"] = match.group("city")
+        parsed["state"] = match.group("state")
+        parsed["zip"] = normalize_zip(match.group("zip"))
     else:
         # Look for a zip to normalize out.
         search = re.search(zip_re, city_state_zip)
         if search:
             city_state = city_state_zip[0:search.start(1)].strip()
-            parsed[u"zip"] = normalize_zip(search.group(0))
+            parsed["zip"] = normalize_zip(search.group(0))
         else:
             raise AddressException("Unmatched zip: {}".format(repr(address)))
 
         # Look for a state to normalize out.
         cs = [a for a in re.split("[^\w.]", re.sub("[\.]", "", city_state)) if a]
         if cs[-1].lower() in STATES_NORMALIZED:
-            parsed[u"state"] = unicode(STATES_NORMALIZED[cs[-1].lower()])
+            parsed["state"] = STATES_NORMALIZED[cs[-1].lower()]
             # Replace once from the right.  The tricky [::-1]'s are to flip
             # both the original and repalcement strings, so that we can replace
             # right-to-left, and then flipping the result back around.
-            parsed[u"city"] = city_state[::-1].replace(cs[-1][::-1], "", 1)[::-1].rstrip(", ")
+            parsed["city"] = city_state[::-1].replace(cs[-1][::-1], "", 1)[::-1].rstrip(", ")
         elif " ".join(cs[-2:]).lower() in STATES_NORMALIZED:
-            parsed[u"state"] = STATES_NORMALIZED[" ".join(cs[-2:]).lower()]
-            parsed[u"city"] = city_state.replace(cs[-1], "").replace(cs[-2], "").rstrip(", ")
+            parsed["state"] = STATES_NORMALIZED[" ".join(cs[-2:]).lower()]
+            parsed["city"] = city_state.replace(cs[-1], "").replace(cs[-2], "").rstrip(", ")
         else:
             raise AddressException("Unmatched city/state/zip: {}".format(repr(address)))
     return parsed
@@ -98,8 +98,8 @@ def parse_address(address):
 def format_address(parsed):
     order = ("name", "organization", "address1", "address2", "address3")
     parts = [parsed[o] for o in order if o in parsed]
-    parts.append(u"{}, {}  {}".format(parsed["city"], parsed["state"], parsed["zip"]))
-    return u"\n".join(parts)
+    parts.append("{}, {}  {}".format(parsed["city"], parsed["state"], parsed["zip"]))
+    return "\n".join(parts)
 
 def _parse_all(addresses):
     parsed = []
